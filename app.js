@@ -36,7 +36,10 @@ app.post("/players", (req, res) => {
 
 // 全ユーザデータの取得 -----------------------------------
 app.get("/players", (req, res) => {
-    res.status(200).json(players);
+    res.status(200).json({
+        "players": players
+    });
+
 });
 
 // 任意のユーザデータの取得 -----------------------------------
@@ -46,7 +49,9 @@ app.get("/players/:id", (req, res) => {
     // URLで指定されたidのプレイヤーデータを取得し, 変数playerに格納
     const player = players.find( p => p.id === parseInt(req.params.id));  // 指定されたidのプレイヤを検索
     if(player) {
-        res.json(player);
+        res.json({
+            "player": player
+        });
     } else {
         res.status(400).json({
             message: "route param was invalid."

@@ -5,7 +5,7 @@ app.use(express.json());
 
 let players = [];
 
-app.get("/", (req, res) => {
+app.get("", (req, res) => {
     res.json({
         message: "Welcome to mahjong-scoring-app"
     })

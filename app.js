@@ -86,6 +86,20 @@ app.put("/players/:id/point", (req, res) => {
     }
 });
 
+app.delete("/players/:id", (req, res) => {
+    const deletePlayerIndex = players.findIndex( p => p.id === parseInt(req.params.id)); // 指定されたidのプレイヤのインデックスを検索
+    if(deletePlayerIndex !== -1) {
+        var deleted = players.splice(deletePlayerIndex, 1); // splice(開始位置Index, 削除数)
+        res.json({
+            message: `Deleting Succeeded!`
+        });
+    } else {
+        res.status(400).json({
+            message: "invalid id"
+        });
+    }
+})
+
 // サーバ構築
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

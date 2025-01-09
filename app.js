@@ -5,6 +5,12 @@ app.use(express.json());
 
 let players = [];
 
+app.get("/", (req, res) => {
+    res.json({
+        message: "Welcome to mahjong-scoring-app"
+    })
+})
+
 // ユーザ登録 -----------------------------------
 // id, name, point, scoreをクエリパラメータで指定してリクエスト（nameはフロント側入力, pointとscoreは初期値をフロント側で指定することを想定）
 // http://localhost:3000/players?id=1&name=Yuta&point=0&score=25000
@@ -24,7 +30,7 @@ app.post("/players", (req, res) => {
     // レスポンス
     res.status(200).json({
         message: "New user was registered.", 
-        player: players.name
+        player: newUser
     });
 });
 

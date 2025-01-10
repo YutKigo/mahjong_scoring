@@ -43,6 +43,15 @@ app.get("/players", (req, res) => {
 
 });
 
+// isSelectedがtrueのプレイやデータ取得 -----------------------
+// 全ユーザデータの取得 -----------------------------------
+app.get("/players/selected", (req, res) => {
+    const selectedPlayers = players.find( p => p.isSelected === true );
+    res.status(200).json({
+        "players": selectedPlayers
+    });
+});
+
 // 任意のユーザデータの取得 -----------------------------------
 // ルートパラメータにユーザIDを指定
 // http://localhost:3000/players/1
@@ -84,6 +93,19 @@ app.put("/players/:id/point", (req, res) => {
     const newPoint = req.query.point; // 更新値をクエリから取得
     if(player) {
         player.point = newPoint;
+        res.json({message: `player${req.params.id} point updated`});
+    } else {
+        res.status(400).json({
+            message: "invalid input"
+        });
+    }
+});
+
+// 任意のユーザのisSelectedの反転更新 -----------------------------------
+app.put("/players/:id/isSelected", (req, res) => {
+    const player = players.find( p => p.id === parseInt(req.params.id)); // 指定されたidのプレイヤを検索
+    if(player) {
+        player.isSelected = !player.isSelected;
         res.json({message: `player${req.params.id} point updated`});
     } else {
         res.status(400).json({

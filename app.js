@@ -4,6 +4,7 @@ const app = express();
 app.use(express.json());
 
 let players = [];
+let currentPlayers = [];
 
 app.get("", (req, res) => {
     res.json({
@@ -104,6 +105,49 @@ app.delete("/players/:id", (req, res) => {
         });
     }
 })
+
+// -----------------------------------------------------------------------------------------------------------------------------
+app.post("/currentPlayers", (req, res) => {
+
+    // 登録する新ユーザデータ
+    const newCurrentPlayers = {
+        id: req.query.id, 
+        name: req.query.name,
+        point: req.query.point,
+        score: req.query.score
+    };
+
+    // 配列に格納
+    currentPlayers.push(newCurrentPlayers);
+
+    // レスポンス
+    res.status(200).json({
+        message: "New user was registered.", 
+        currentPlayer: newCurrentPlayers
+    });
+});
+
+app.get("/currentPlayers", (req, res) => {
+    res.status(200).json({
+        "currentPlayer": currentPlayers
+    });
+})
+
+app.delete("/currentPlayers/:id", (req, res) => {
+    const deletePlayerIndex = players.findIndex( p => p.id === parseInt(req.params.id)); // 指定されたidのプレイヤのインデックスを検索
+    if(deletePlayerIndex !== -1) {
+        var deleted = currentPlayers.splice(deletePlayerIndex, 1); // splice(開始位置Index, 削除数)
+        res.json({
+            message: `Deleting Succeeded!`
+        });
+    } else {
+        res.status(400).json({
+            message: "invalid id"
+        });
+    }
+})
+
+
 
 // サーバ構築
 const port = process.env.PORT || 3000;

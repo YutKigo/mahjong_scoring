@@ -128,9 +128,6 @@ app.delete("/players/:id", (req, res) => {
     }
 })
 
-
-
-
 // サーバ構築
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

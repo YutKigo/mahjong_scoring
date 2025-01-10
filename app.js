@@ -21,7 +21,8 @@ app.post("/players", (req, res) => {
         id: players.length + 1, 
         name: req.query.name,
         point: 0,
-        score: 25000
+        score: 25000,
+        isSelected: false
     };
 
     // 配列に格納

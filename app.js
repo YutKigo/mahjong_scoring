@@ -4,6 +4,8 @@ const app = express();
 app.use(express.json());
 
 let players = [];
+let selectedPlayers = [];
+
 
 app.get("", (req, res) => {
     res.json({
@@ -42,15 +44,16 @@ app.get("/players", (req, res) => {
     });
 
 });
-
+/*
 // isSelectedがtrueのプレイやデータ取得 -----------------------
+// フロント側で行う
 // 全ユーザデータの取得 -----------------------------------
 app.get("/players/selected", (req, res) => {
     const selectedPlayers = players.find( p => p.isSelected === true );
     res.status(200).json({
         "players": selectedPlayers
     });
-});
+});*/
 
 // 任意のユーザデータの取得 -----------------------------------
 // ルートパラメータにユーザIDを指定
@@ -126,6 +129,24 @@ app.delete("/players/:id", (req, res) => {
             message: "invalid id"
         });
     }
+});
+
+/* -------------------------------------------------------------------------------------------------------------- */
+// プレイヤ選択 ------------------------------------
+// idをクエリで指定するとplayersの中から探して代入
+app.post("/selectedPlayers", (req, res) => {
+    const newSelectedPlayer = players.find( p => p.id === req.query.id );
+    selectedPlayers.push(newSelectedPlayer);
+    res.json({
+        message: "New Selected Players added"
+    })
+});
+
+// 選択されたプレイヤー全員を取得
+app.get("/selectedPlayers", (req, res) => {
+    res.json({
+        "selectedPlayers": selectedPlayers
+    })
 })
 
 // サーバ構築

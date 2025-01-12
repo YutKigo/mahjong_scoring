@@ -134,8 +134,8 @@ app.delete("/players/:id", (req, res) => {
 /* -------------------------------------------------------------------------------------------------------------- */
 // プレイヤ選択 ------------------------------------
 // idをクエリで指定するとplayersの中から探して代入
-app.post("/selectedPlayers", (req, res) => {
-    const newSelectedPlayer = players.find( p => p.id === req.query.id );
+app.post("/selectedPlayers/:id", (req, res) => {
+    const newSelectedPlayer = players.find( p => p.id === parseInt(req.params.id) );
     selectedPlayers.push(newSelectedPlayer);
     res.json({
         message: "New Selected Players added"

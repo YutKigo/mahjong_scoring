@@ -135,12 +135,16 @@ app.delete("/players/:id", (req, res) => {
 // プレイヤ選択 ------------------------------------
 // idをクエリで指定するとplayersの中から探して代入
 app.post("/selectedPlayers/:id", (req, res) => {
-    const newSelectedPlayer = players.find( p => p.id === parseInt(req.params.id) );
-    selectedPlayers.push(newSelectedPlayer);
+    const newSelectedPlayer = players.find(p => p.id === parseInt(req.params.id));
+    
+    // 新しい選手をselectedPlayersに追加
+    selectedPlayers = [...selectedPlayers, newSelectedPlayer];
+
     res.json({
-        message: "New Selected Players added"
-    })
+        message: "New Selected Player added"
+    });
 });
+
 
 // 選択されたプレイヤー全員を取得
 app.get("/selectedPlayers", (req, res) => {

@@ -145,7 +145,6 @@ app.post("/selectedPlayers/:id", (req, res) => {
     });
 });
 
-
 // 選択されたプレイヤー全員を取得
 app.get("/selectedPlayers", (req, res) => {
     res.json({

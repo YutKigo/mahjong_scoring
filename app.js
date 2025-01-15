@@ -75,9 +75,9 @@ app.get("/players/:id", (req, res) => {
 // 任意のユーザの点数更新 -----------------------------------
 // scoreには「フロント側で加算された点数値」をクエリパラメータに指定
 // http://localhost:3000/players/1/score?score=33000
-app.put("/selectedPlayers/:id/score", (req, res) => {
+app.put("/selectedPlayers/:id", (req, res) => {
     const sPlayer = selectedPlayers.find( p => p.id === parseInt(req.params.id)); // 指定されたidのプレイヤを検索
-    const newScore = req.query.score; // 更新値をクエリから取得
+    const newScore = parseInt(req.query.score); // 更新値をクエリから取得
     if(sPlayer) {
         sPlayer.score = newScore;
         res.json({message: `player${req.params.id} score updated`});

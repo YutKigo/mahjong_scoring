@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 
 let players = [];
-let selectedPlayers = [];
+let selectedPlayers = []; // 選択されたプレイヤ
 
 
 app.get("", (req, res) => {
